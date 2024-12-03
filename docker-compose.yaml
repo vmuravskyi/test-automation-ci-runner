@@ -1,0 +1,39 @@
+version: "3"
+services:
+  hub:
+    image: seleniarm/hub:4.20
+  chrome:
+    image: seleniarm/node-chromium:124.0
+    shm_size: '2g'
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=4
+  firefox:
+    image: seleniarm/node-firefox:125.0
+    shm_size: '2g'
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=4
+  automation-tests:
+    image: vmuravskyi/dokerized-tests
+    depends_on:
+      - hub
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=chrome
+      - HUB_HOST=hub
+      - THREAD_COUNT=4
+      - TEST_SUITE=all.xml
+    volumes:
+      - ./output/automation-tests:/home/selenium-docker/test-output
