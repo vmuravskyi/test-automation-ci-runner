@@ -1,0 +1,11 @@
+version: "3"
+services:
+  automation-tests:
+    image: vmuravskyi/dokerized-tests
+    environment:
+      - BROWSER=chrome
+      - HUB_HOST=hub
+      - THREAD_COUNT=4
+      - TEST_SUITE=all.xml
+    volumes:
+      - ./output/automation-tests:/home/selenium-docker/test-output
