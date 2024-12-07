@@ -6,6 +6,6 @@ services:
       - BROWSER=${BROWSER}
       - HUB_HOST=hub
       - THREAD_COUNT=4
-      - TEST_SUITE={TEST_SUITE}.xml
+      - TEST_SUITE=${TEST_SUITE}.xml
     volumes:
       - ./output/automation-tests:/home/selenium-docker/test-output
