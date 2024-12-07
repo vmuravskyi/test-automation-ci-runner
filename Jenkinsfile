@@ -1,12 +1,14 @@
 pipeline {
-
     agent any
 
-    stages {
+    parameters {
+        choice choices: ['chrome', 'firefox'], description: 'Select the browser', name: 'BROWSER'
+    }
 
+    stages {
         stage('start grid') {
             steps {
-                sh 'docker compose -f grid.yaml up -d'
+                sh 'docker compose -f grid.yaml up --scale ${params.BROWSER}=2 -d'
             }
         }
 
@@ -15,7 +17,6 @@ pipeline {
                 sh 'docker compose -f test-suites.yaml up'
             }
         }
-
     }
 
     post {
@@ -25,5 +26,4 @@ pipeline {
             archiveArtifacts artifacts: 'output/automation-tests/index.html', followSymlinks: false
         }
     }
-
 }

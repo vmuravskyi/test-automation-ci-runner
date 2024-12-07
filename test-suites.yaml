@@ -3,7 +3,8 @@ services:
   automation-tests:
     image: vmuravskyi/dokerized-tests
     environment:
-      - BROWSER=chrome
+      # - BROWSER=${BROWSER}
+      - BROWSER
       - HUB_HOST=hub
       - THREAD_COUNT=4
       - TEST_SUITE=all.xml
