@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice choices: ['chrome', 'firefox'], description: 'Select the browser', name: 'BROWSER'
         string defaultValue: 'regression', description: 'Input test suite name', name: 'TEST_SUITE'
-        choice choices: ['1', '2', '4', '8', '16'], description: 'Select thread count', name: 'THREAD_COUNT'
+        choice choices: ['4', '1', '2', '8', '16'], description: 'Select thread count', name: 'THREAD_COUNT'
     }
 
     stages {
