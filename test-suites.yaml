@@ -5,7 +5,7 @@ services:
     environment:
       - BROWSER=${BROWSER}
       - HUB_HOST=hub
-      - THREAD_COUNT=4
+      - THREAD_COUNT=${THREAD_COUNT}
       - TEST_SUITE=${TEST_SUITE}.xml
     volumes:
       - ./output/automation-tests:/home/selenium-docker/test-output
