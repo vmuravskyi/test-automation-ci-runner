@@ -16,7 +16,13 @@ pipeline {
 
         stage('run tests') {
             steps {
-                sh 'docker compose -f test-suites.yaml up'
+                // make sure to run always latest build in case node is not the one the image was built on
+                sh 'docker compose -f test-suites.yaml up --pull=always'
+                // script {
+                //     if(fileExists('output/automation-tests/testng-failed.xml')) {
+                //         error('failed tests found')
+                //     }
+                // }
             }
         }
     }
